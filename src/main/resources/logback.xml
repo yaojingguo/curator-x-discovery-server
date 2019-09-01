@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration debug="false">
+    <!-- Stop the annoying output INFO at start, -->
+    <!--   see https://www.mkyong.com/logging/how-to-stop-logback-status-info-at-the-start-of-every-log/ -->
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+    <property name="log-dir" value="logs"/>
+    <property name="project-name" value="message-producer"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{ISO8601} %-5p [%t] %c{2}: %m%n</pattern>
+        </layout>
+    </appender>
+
+    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log-dir}/${project-name}.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${log-dir}/${project-name}-%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>20</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>2MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} %-5p [%t] %c{2}: %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <!--<appender-ref ref="RollingFile" />-->
+    </root>
+
+    <logger name="org.yao.curator.x.discovery.server" level="DEBUG" additivity="false">
+    <appender-ref ref="STDOUT" />
+    <!--<appender-ref ref="RollingFile" />-->
+    </logger>
+
+    <!--<logger name="org.springframework" level="DEBUG" additivity="false">-->
+        <!--<appender-ref ref="STDOUT" />-->
+        <!--&lt;!&ndash;<appender-ref ref="RollingFile" />&ndash;&gt;-->
+    <!--</logger>-->
+</configuration>

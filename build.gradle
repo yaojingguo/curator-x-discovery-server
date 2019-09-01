@@ -1,7 +1,8 @@
 plugins {
-	id 'org.springframework.boot' version '2.1.7.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-	id 'java'
+  id 'org.springframework.boot' version '2.1.7.RELEASE'
+  id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+  id 'java'
+  id 'idea'
 }
 
 group = 'org.yao'
@@ -9,10 +10,13 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
-	mavenCentral()
+  mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.apache.curator:curator-x-discovery:4.2.0'
+  implementation 'com.google.guava:guava:28.1-jre'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation "com.google.truth:truth:1.0"
 }
